@@ -9,6 +9,17 @@ class Graph {
     bool isDirected;
     vector<list<int>> adjList;
 
+    void DFSUtil(int vertex, vector<bool>& visited){
+        visited[vertex]=true;
+        cout<<vertex<<" ";
+
+        for(int neighbor : adjList[vertex]){
+            if(!visited[neighbor]){
+                DFSUtil(neighbor, visited);
+            }
+        }
+    }
+
 
 public:
     Graph(int vertices, bool directed=false){
@@ -22,6 +33,13 @@ public:
         if(!isDirected){
             adjList[v].push_back(u);
         }
+    }
+
+    void DFS(int start){
+        vector<bool> visited(numVertices, false);
+        cout<<"DFS starting from vertex "<< start<< ": ";
+        DFSUtil(start, visited);
+        cout<<endl;
     }
 
     void BFS(int start){
@@ -74,6 +92,7 @@ int main(){
     g.printGraph();
 
     g.BFS(0);
+    g.DFS(0);
 
 
 
