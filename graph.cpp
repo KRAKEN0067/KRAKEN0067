@@ -1,6 +1,7 @@
 #include<iostream>
 #include <vector>
 #include <list>
+#include<queue>
 using namespace std;
 
 class Graph {
@@ -21,6 +22,30 @@ public:
         if(!isDirected){
             adjList[v].push_back(u);
         }
+    }
+
+    void BFS(int start){
+        vector<bool> visited(numVertices, false);
+        queue<int> q;
+
+        visited[start] = true;
+        q.push(start);
+
+        cout<<"BFS starting from vertex "<<start<<": ";
+
+        while (!q.empty()){
+            int vertex = q.front();
+            q.pop();
+            cout<<vertex<<" ";
+            for(int neighbor: adjList[vertex]){
+                if (!visited[neighbor]){
+                    visited[neighbor]=true;
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        cout<<endl;
     }
 
     void printGraph(){
@@ -47,6 +72,8 @@ int main(){
     g.addEdge(3, 4);
 
     g.printGraph();
+
+    g.BFS(0);
 
 
 
